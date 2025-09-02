@@ -263,9 +263,9 @@ export default function Dashboard() {
                 Login
               </Button>
             </form>
-            <div className="mt-4 text-sm text-gray-600 text-center">
+            {/* <div className="mt-4 text-sm text-gray-600 text-center">
               Demo password: admin123
-            </div>
+            </div> */}
           </CardContent>
         </Card>
       </div>

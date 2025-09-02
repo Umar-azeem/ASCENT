@@ -1,7 +1,7 @@
 const API_BASE_URL =
   process.env.NEXT_PUBLIC_API_URL ||
   (process.env.NODE_ENV === "production"
-    ? "https://dashboard-backend-5ji4.onrender.com"
+    ? "https://ascent-backend.vercel.app"
     : "http://localhost:5000");
 
 export async function apiRequest(
