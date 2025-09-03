@@ -1,11 +1,11 @@
-  "use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import {
   ArrowRight,
   Star,
@@ -18,9 +18,8 @@ import {
   Award,
   Users,
   TrendingUp,
-} from "lucide-react"
-import apiRequest from "./utils/api"
-
+} from "lucide-react";
+import apiRequest from "./utils/api";
 
 const heroSlides = [
   {
@@ -64,11 +63,9 @@ const heroSlides = [
     buttonLink: "/products?sale=true",
     gradient: "from-red-500 via-pink-500 to-orange-500",
   },
-]
-
+];
 
 const categories = [
-
   {
     name: "Men",
     description: "Classic & Modern",
@@ -80,42 +77,47 @@ const categories = [
   {
     name: "Kids",
     description: "Fun & Comfortable",
-     image: "/kd.png",
+    image: "/kd.png",
     href: "/products?category=kids",
     color: "from-green-500 to-emerald-500",
     items: "1,200+ Items",
   },
-]
-
+];
 
 export default function HomePage() {
-  const [currentSlide, setCurrentSlide] = useState(0)
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true)
-  const [menProducts, setMenProducts] = useState<any[]>([])
-  const [kidsProducts, setKidsProducts] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
-
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const [menProducts, setMenProducts] = useState<any[]>([]);
+  const [kidsProducts, setKidsProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   // Fetch products and filter by gender
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await apiRequest("/api/products", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        })
-        console.log("Fetched products:", data)
+        const data = await apiRequest("/api/products");
+        // const data = await res.json();
 
-        setMenProducts(data.filter((p: any) => p.gender?.toLowerCase() === "men"))
-        setKidsProducts(data.filter((p: any) => p.gender?.toLowerCase() === "kids"))
-      } catch (error) {
-        console.error("Failed to fetch products:", error)
+        console.log(data);
+        if (Array.isArray(data)) {
+          setMenProducts(
+            data.filter((p: any) => p.gender?.toLowerCase() === "men")
+          );
+          setKidsProducts(
+            data.filter((p: any) => p.gender?.toLowerCase() === "kids")
+          );
+        } else {
+          console.error("API did not return an array:", data);
+        }
+      } catch (err) {
+        console.error("Error fetching products:", err);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchProducts()
-  }, [])
+    };
+
+    fetchProducts();
+  }, []);
 
   const renderProductCard = (product: any) => (
     <Card
@@ -157,7 +159,11 @@ export default function HomePage() {
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      className={`h-4 w-4 ${i < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
+                      className={`h-4 w-4 ${
+                        i < Math.floor(product.rating)
+                          ? "fill-yellow-400 text-yellow-400"
+                          : "text-gray-300"
+                      }`}
                     />
                   ))}
                   <span className="text-sm text-gray-600 ml-2">
@@ -167,35 +173,39 @@ export default function HomePage() {
               </div>
             )}
             <div className="flex items-center space-x-2">
-              <span className="text-2xl font-bold text-green-600">${product.price}</span>
+              <span className="text-2xl font-bold text-green-600">
+                ${product.price}
+              </span>
             </div>
           </div>
         </CardContent>
       </Link>
     </Card>
-  )
+  );
 
   useEffect(() => {
-    if (!isAutoPlaying) return
+    if (!isAutoPlaying) return;
 
     const interval = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
-    }, 5000)
+      setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+    }, 5000);
 
-    return () => clearInterval(interval)
-  }, [isAutoPlaying])
+    return () => clearInterval(interval);
+  }, [isAutoPlaying]);
 
   const nextSlide = () => {
-    setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
-  }
+    setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
+  };
 
   const prevSlide = () => {
-    setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length)
-  }
+    setCurrentSlide(
+      (prev) => (prev - 1 + heroSlides.length) % heroSlides.length
+    );
+  };
 
   const goToSlide = (index: number) => {
-    setCurrentSlide(index)
-  }
+    setCurrentSlide(index);
+  };
 
   return (
     <div className="min-h-screen">
@@ -205,13 +215,16 @@ export default function HomePage() {
           {heroSlides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100" : "opacity-0"
-                }`}
+              className={`absolute inset-0 transition-opacity duration-1000 ${
+                index === currentSlide ? "opacity-100" : "opacity-0"
+              }`}
             >
-              <div className={`absolute inset-0 bg-gradient-to-r ${slide.gradient} opacity-90`} />
+              <div
+                className={`absolute inset-0 bg-gradient-to-r ${slide.gradient} opacity-90`}
+              />
               <Image
                 src={slide.image || "/placeholder.svg"}
-                alt='slide image'
+                alt="slide image"
                 fill
                 className="object-cover"
                 priority={index === 0}
@@ -235,7 +248,11 @@ export default function HomePage() {
                   {heroSlides[currentSlide].description}
                 </p> */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Button asChild size="lg" className="text-lg px-8 py-4 bg-white text-gray-900 hover:bg-gray-100">
+                  <Button
+                    asChild
+                    size="lg"
+                    className="text-lg px-8 py-4 bg-white text-gray-900 hover:bg-gray-100"
+                  >
                     <Link href={heroSlides[currentSlide].buttonLink}>
                       {heroSlides[currentSlide].buttonText}
                       <ArrowRight className="ml-2 h-5 w-5" />
@@ -265,8 +282,11 @@ export default function HomePage() {
               <button
                 key={index}
                 onClick={() => goToSlide(index)}
-                className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide ? "bg-white scale-125" : "bg-white/50 hover:bg-white/75"
-                  }`}
+                className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                  index === currentSlide
+                    ? "bg-white scale-125"
+                    : "bg-white/50 hover:bg-white/75"
+                }`}
               />
             ))}
           </div>
@@ -295,9 +315,12 @@ export default function HomePage() {
       <section className="py-4 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Shop by Category</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Shop by Category
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Discover our carefully curated collections designed for every style, occasion, and personality
+              Discover our carefully curated collections designed for every
+              style, occasion, and personality
             </p>
           </div>
 
@@ -317,9 +340,16 @@ export default function HomePage() {
                     ></div>
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="text-center text-white transform group-hover:scale-105 transition-transform duration-300">
-                        <h3 className="text-3xl font-bold mb-2">{category.name}</h3>
-                        <p className="text-lg opacity-90 mb-2">{category.description}</p>
-                        <Badge variant="secondary" className="bg-white/20 text-white border-white/30">
+                        <h3 className="text-3xl font-bold mb-2">
+                          {category.name}
+                        </h3>
+                        <p className="text-lg opacity-90 mb-2">
+                          {category.description}
+                        </p>
+                        <Badge
+                          variant="secondary"
+                          className="bg-white/20 text-white border-white/30"
+                        >
                           {category.items}
                         </Badge>
                       </div>
@@ -336,9 +366,12 @@ export default function HomePage() {
       <section className="py-4 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Men Products</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Men Products
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Handpicked favorites from our latest collection, loved by thousands of customers worldwide
+              Handpicked favorites from our latest collection, loved by
+              thousands of customers worldwide
             </p>
           </div>
           <section className="py-4 bg-white">
@@ -372,11 +405,12 @@ export default function HomePage() {
                   {menProducts.map(renderProductCard)}
                 </div>
               ) : (
-                <p className="text-center text-gray-600 py-12">No men products found.</p>
+                <p className="text-center text-gray-600 py-12">
+                  No men products found.
+                </p>
               )}
             </div>
           </section>
-
 
           <div className="text-center mt-12">
             <Button asChild size="lg" className="text-lg px-8 py-4">
@@ -392,9 +426,12 @@ export default function HomePage() {
       <section className="py-4 bg-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">Kids Products</h2>
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Kids Products
+            </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Handpicked favorites from our latest collection, loved by thousands of customers worldwide
+              Handpicked favorites from our latest collection, loved by
+              thousands of customers worldwide
             </p>
           </div>
 
@@ -429,11 +466,12 @@ export default function HomePage() {
                   {kidsProducts.map(renderProductCard)}
                 </div>
               ) : (
-                <p className="text-center text-gray-600 py-12">No kids products found.</p>
+                <p className="text-center text-gray-600 py-12">
+                  No kids products found.
+                </p>
               )}
             </div>
           </section>
-
 
           <div className="text-center mt-12">
             <Button asChild size="lg" className="text-lg px-8 py-4">
@@ -489,7 +527,9 @@ export default function HomePage() {
                 <Truck className="h-10 w-10 text-blue-600" />
               </div>
               <h3 className="text-2xl font-semibold">Free Shipping</h3>
-              <p className="text-gray-600 text-lg">Free shipping on orders over $50 worldwide</p>
+              <p className="text-gray-600 text-lg">
+                Free shipping on orders over $50 worldwide
+              </p>
             </div>
 
             <div className="text-center space-y-4 group">
@@ -497,7 +537,9 @@ export default function HomePage() {
                 <Shield className="h-10 w-10 text-green-600" />
               </div>
               <h3 className="text-2xl font-semibold">Secure Payment</h3>
-              <p className="text-gray-600 text-lg">100% secure payment with SSL encryption</p>
+              <p className="text-gray-600 text-lg">
+                100% secure payment with SSL encryption
+              </p>
             </div>
 
             <div className="text-center space-y-4 group">
@@ -505,11 +547,13 @@ export default function HomePage() {
                 <Headphones className="h-10 w-10 text-purple-600" />
               </div>
               <h3 className="text-2xl font-semibold">24/7 Support</h3>
-              <p className="text-gray-600 text-lg">Customer support via WhatsApp & Email</p>
+              <p className="text-gray-600 text-lg">
+                Customer support via WhatsApp & Email
+              </p>
             </div>
           </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
