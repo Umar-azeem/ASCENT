@@ -7,13 +7,12 @@ import { Footer } from "@/components/footer"
 import { TopMarquee } from "@/components/top-marquee"
 import { Toaster } from "sonner";
 
-
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "StyleHub - Fashion for Everyone",
-  description: "Premium fashion collection for Kids, Women, and Men",
-    generator: 'v0.dev'
+  title: "Ascent Garment - Fashion for Everyone",
+  description: "Premium fashion collection for  Men and Kids",
+    generator: 'umar.dev'
 }
 
 export default function RootLayout({

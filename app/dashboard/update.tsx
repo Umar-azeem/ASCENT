@@ -147,7 +147,7 @@ const Update = () => {
                                         <h3 className="font-semibold">{product.name}</h3>
                                         <p className="text-xs md:text-sm text-gray-600">{product.description}</p>
                                         <p className="text-md md:text-lg font-bold text-green-600">
-                                            ${product.price}
+                                            Rs.{product.price}
                                         </p>
                                         <div className="flex gap-2 mt-2">
                                             <Badge>{product.category}</Badge>

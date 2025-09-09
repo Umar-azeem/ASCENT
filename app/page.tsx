@@ -174,7 +174,7 @@ export default function HomePage() {
             )}
             <div className="flex items-center space-x-2">
               <span className="text-2xl font-bold text-green-600">
-                ${product.price}
+                Rs.{product.price}
               </span>
             </div>
           </div>
@@ -528,7 +528,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-2xl font-semibold">Free Shipping</h3>
               <p className="text-gray-600 text-lg">
-                Free shipping on orders over $50 worldwide
+                Free shipping on orders over Rs.2500 worldwide
               </p>
             </div>
 

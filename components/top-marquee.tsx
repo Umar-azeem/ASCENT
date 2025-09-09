@@ -12,14 +12,12 @@ export function TopMarquee() {
     <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-2 relative overflow-hidden">
       <div className="overflow-hidden whitespace-nowrap">
         <div className="animate-marquee inline-block">
-          <span className="mx-8">🎉 Welcome to StyleHub - Your Fashion Destination!</span>
+          <span className="mx-8">🎉 Welcome to Ascent Garment - Your Fashion Destination!</span>
           <span className="mx-8">🔥 New Collection 2024 Now Available</span>
           <span className="mx-8">💫 Up to 50% Off on Selected Items</span>
           <span className="mx-8">📱 Order via WhatsApp for Quick Service</span>
         </div>
       </div>
-
-
       {/* <button
         onClick={() => setIsVisible(false)}
         className="absolute right-2 top-1/2 transform -translate-y-1/2 hover:bg-white/20 rounded-full p-1 transition-colors"

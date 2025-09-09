@@ -108,15 +108,15 @@ export function Navbar() {
         className="w-80 p-0"
       >
         <div className="h-full overflow-y-auto px-4 pb-6 pt-4"> 
-          <div className="flex flex-col space-y-4">
+          <div className="flex flex-col space-y-1">
             <Link href="/" className="flex items-center space-x-2 px-2">
-              <div className="w-20 h-20 rounded-lg flex items-center justify-center">
-                <Image src="/logob.png" alt="Logo" width={200} height={200} />
+              <div className="w-24 h-24 rounded-lg flex items-center justify-center">
+                <Image src="/ascR.png" alt="Logo" width={300} height={300} />
               </div>
-              <div>
+              {/* <div>
                 <h1 className="font-bold text-lg">SCENT</h1>
                 <p className="text-xs text-muted-foreground">Garment</p>
-              </div>
+              </div> */}
             </Link>
 
            
@@ -181,14 +181,14 @@ export function Navbar() {
           <div className="flex items-center space-x-4">
             <MobileNav />
 
-            <Link href="/" className="flex items-center space-x-2">
-              <div className="w-14 h-14 rounded-lg flex items-center justify-center">
-                <Image src="/logob.png" alt="Logo" width={200} height={200} />
+            <Link href="/" className="flex items-center  space-x-2">
+              <div className="w-full px-10 md:px-2 rounded-lg flex items-center justify-center ">
+                <Image src="/ascR.png" alt="Logo" width={100} height={100} />
               </div>
-              <div>
+              {/* <div>
                 <h1 className="font-bold text-lg">SCENT</h1>
                 <p className="text-xs text-muted-foreground">Garment</p>
-              </div>
+              </div> */}
             </Link>
 
             {/* Desktop nav (Women removed) */}

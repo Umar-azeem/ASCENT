@@ -89,20 +89,20 @@ Time: ${new Date().toLocaleTimeString()}`;
       <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
-          <div className="space-y-2">
+          <div className="space-y-1">
             <div className="flex items-center space-x-2">
-              <div className="w-14 h-14 bg-gradient-to-br rounded-lg flex items-center justify-center">
+              <div className="w-24 h-24 bg-gradient-to-br rounded-lg flex items-center justify-center">
                 <Image
-                  src="logo1.png"
+                  src="ascyR.png"
                   alt="Logo"
-                  width={200}
-                  height={200}
+                  width={300}
+                  height={300}
                 />
               </div>
-              <div>
-                <h1 className="font-bold text-lg">SCENT</h1>
+              {/* <div>
+                <h1 className="font-bold text-lg">S</h1>
                 <p className="text-xs text-muted-foreground">Garment</p>
-              </div>
+              </div> */}
             </div>
             <p className="text-gray-300 text-sm leading-relaxed">
               Your premier destination for quality fashion. We offer the latest
@@ -233,18 +233,18 @@ Time: ${new Date().toLocaleTimeString()}`;
           <div className="flex justify-between md:justify-normal items-center space-x-1 md:space-x-4">
             <span className="text-sm text-gray-400 pl-4 md:pl-0">Powered by</span>
             <div className="flex ">
-            <div className="w-10 h-10 md:w-14 md:h-14 bg-gradient-to-br rounded-lg flex items-center justify-center">
+            <div className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br rounded-lg flex items-center justify-center">
               <Image
-                src="/logo1.png"
+                src="ascyR.png"
                 alt="Logo"
-                width={200}
-                height={200}
+                width={300}
+                height={300}
               />
             </div>
-            <div>
+            {/* <div>
               <h1 className="font-bold text-lg">SCENT</h1>
               <p className="text-xs text-muted-foreground">Garment</p>
-            </div>
+            </div> */}
             </div>
           </div>
         </div>

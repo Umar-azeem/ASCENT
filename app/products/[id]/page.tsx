@@ -205,7 +205,7 @@ View Image: ${product.images[0] || 'No image available'}
               <p className="text-gray-600 text-lg">{product.description}</p>
             </div>
 
-            <div className="text-4xl font-bold text-green-600">${product.price}</div>
+            <div className="text-4xl font-bold text-green-600">Rs.{product.price}</div>
 
             {/* Colors */}
             {product.variants?.colors && product.variants.colors.length > 0 && (
