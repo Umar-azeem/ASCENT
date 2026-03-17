@@ -56,7 +56,7 @@ const categories = [
   {
     name: "Men",
     description: "Classic & Modern",
-    image: "/New6.png",
+    image: "https://res.cloudinary.com/ddrib9bsp/image/upload/v1773744197/new6_rlomku.png",
     href: "/products?category=men",
     color: "from-blue-500 to-indigo-500",
     items: "1,800+ Items",
@@ -64,7 +64,7 @@ const categories = [
   {
     name: "Kids",
     description: "Fun & Comfortable",
-    image: "/New4.png",
+    image: "https://res.cloudinary.com/ddrib9bsp/image/upload/v1773744192/new4_tqgmpz.png",
     href: "/products?category=kids",
     color: "from-green-500 to-emerald-500",
     items: "1,200+ Items",
