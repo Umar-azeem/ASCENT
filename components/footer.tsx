@@ -51,9 +51,9 @@ export function Footer() {
     { name: "Returns", href: "/return" },
     { name: "FAQ", href: "/faq" },
     { name: "Review", href: "/review" },
-     { name: "Contact us", href: "/contact" },
+    { name: "Contact us", href: "/contact" },
     { name: "About Us", href: "/about" },
-     { name: "Sizing", href: "/size" },
+    { name: "Sizing", href: "/size" },
   ];
   const categories = [
     { name: "Men's Fashion" },
@@ -74,7 +74,7 @@ Date: ${new Date().toLocaleDateString()}
 Time: ${new Date().toLocaleTimeString()}`;
 
       const whatsappUrl = `https://wa.me/1234567890?text=${encodeURIComponent(
-        whatsappMessage
+        whatsappMessage,
       )}`;
       window.open(whatsappUrl, "_blank");
 
@@ -92,12 +92,7 @@ Time: ${new Date().toLocaleTimeString()}`;
           <div className="space-y-1">
             <div className="flex items-center space-x-2">
               <div className="w-24 h-24 bg-gradient-to-br rounded-lg flex items-center justify-center">
-                <Image
-                  src="ascyR.png"
-                  alt="Logo"
-                  width={300}
-                  height={300}
-                />
+                <Image src="/ascyR.png" alt="Logo" width={300} height={300} />
               </div>
               {/* <div>
                 <h1 className="font-bold text-lg">S</h1>
@@ -231,17 +226,14 @@ Time: ${new Date().toLocaleTimeString()}`;
             </Link> */}
           </div>
           <div className="flex justify-between md:justify-normal items-center space-x-1 md:space-x-4">
-            <span className="text-sm text-gray-400 pl-4 md:pl-0">Powered by</span>
+            <span className="text-sm text-gray-400 pl-4 md:pl-0">
+              Powered by
+            </span>
             <div className="flex ">
-            <div className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br rounded-lg flex items-center justify-center">
-              <Image
-                src="ascyR.png"
-                alt="Logo"
-                width={300}
-                height={300}
-              />
-            </div>
-            {/* <div>
+              <div className="w-20 h-20 md:w-24 md:h-24 bg-gradient-to-br rounded-lg flex items-center justify-center">
+                <Image src="/ascyR.png" alt="Logo" width={300} height={300} />
+              </div>
+              {/* <div>
               <h1 className="font-bold text-lg">SCENT</h1>
               <p className="text-xs text-muted-foreground">Garment</p>
             </div> */}

@@ -1,119 +1,131 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Search, Grid, List, Star } from "lucide-react"
-import { useSearchParams } from "next/navigation"
-import apiRequest from "../utils/api"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
+import { Search, Grid, List, Star } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import apiRequest from "../utils/api";
 
 interface Product {
-  _id: string
-  name: string
-  description: string
-  price: number
-  category: string
-  gender: string
-  images: string[]
-  rating?: number
-  reviews?: number
+  _id: string;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  gender: string;
+  images: string[];
+  rating?: number;
+  reviews?: number;
   variants?: {
-    colors: string[]
-    sizes: string[]
-    ageCategory?: string
-  }
+    colors: string[];
+    sizes: string[];
+    ageCategory?: string;
+  };
 }
 
 export default function ProductsPage() {
-  const searchParams = useSearchParams()
-  const categoryParam = searchParams.get("category")
+  const searchParams = useSearchParams();
+  const categoryParam = searchParams.get("category");
 
-  const [products, setProducts] = useState<Product[]>([])
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
-  const [searchTerm, setSearchTerm] = useState("")
-  const [selectedCategory, setSelectedCategory] = useState(categoryParam || "all")
-  const [sortBy, setSortBy] = useState("name")
-  const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
-  const [loading, setLoading] = useState(true)
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState(
+    categoryParam || "all",
+  );
+  const [sortBy, setSortBy] = useState("name");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [loading, setLoading] = useState(true);
 
-  const categories = ["all", "kids", "women", "men"]
+  const categories = ["all", "kids", "women", "men"];
 
   // Fetch products from API
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await apiRequest("/api/products", {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        })
+        const res = await fetch("/api/products");
+        const data = await res.json();
 
-        // Add default rating/reviews if not present
+        if (!Array.isArray(data)) {
+          console.error("API did not return array:", data);
+          return;
+        }
+
         const withDefaults = data.map((p: Product) => ({
           ...p,
           rating: p.rating || 4.5,
           reviews: p.reviews || Math.floor(Math.random() * 200) + 1,
           variants: p.variants || { colors: [], sizes: [] },
-        }))
+        }));
 
-        setProducts(withDefaults)
-        setFilteredProducts(withDefaults)
+        setProducts(withDefaults);
+        setFilteredProducts(withDefaults);
       } catch (error) {
-        console.error("Failed to fetch products:", error)
+        console.error("Failed to fetch products:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchProducts()
-  }, [])
+    fetchProducts();
+  }, []);
 
   // Sync category filter from URL
   useEffect(() => {
     if (categoryParam) {
-      setSelectedCategory(categoryParam.toLowerCase())
+      setSelectedCategory(categoryParam.toLowerCase());
     }
-  }, [categoryParam])
+  }, [categoryParam]);
 
   // Apply filters & sorting
   useEffect(() => {
-    let filtered = [...products]
+    let filtered = [...products];
 
     // Search filter
     if (searchTerm) {
       filtered = filtered.filter(
         (product) =>
           product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          product.description.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+          product.description.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
     }
 
     // Category filter
     if (selectedCategory !== "all") {
-      filtered = filtered.filter((product) => product.gender?.toLowerCase() === selectedCategory)
+      filtered = filtered.filter(
+        (product) => product.gender?.toLowerCase() === selectedCategory,
+      );
     }
 
     // Sorting
     filtered.sort((a, b) => {
       switch (sortBy) {
         case "price-low":
-          return a.price - b.price
+          return a.price - b.price;
         case "price-high":
-          return b.price - a.price
+          return b.price - a.price;
         case "rating":
-          return (b.rating || 0) - (a.rating || 0)
+          return (b.rating || 0) - (a.rating || 0);
         case "name":
         default:
-          return a.name.localeCompare(b.name)
+          return a.name.localeCompare(b.name);
       }
-    })
+    });
 
-    setFilteredProducts(filtered)
-  }, [searchTerm, selectedCategory, sortBy, products])
+    setFilteredProducts(filtered);
+  }, [searchTerm, selectedCategory, sortBy, products]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -125,7 +137,9 @@ export default function ProductsPage() {
               ? "All Products"
               : `${selectedCategory.charAt(0).toUpperCase() + selectedCategory.slice(1)}'s Collection`}
           </h1>
-          <p className="text-gray-600">Discover our premium fashion collection</p>
+          <p className="text-gray-600">
+            Discover our premium fashion collection
+          </p>
         </div>
 
         {/* Filters */}
@@ -144,14 +158,19 @@ export default function ProductsPage() {
 
             {/* Category & Sort */}
             <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Select
+                value={selectedCategory}
+                onValueChange={setSelectedCategory}
+              >
                 <SelectTrigger className="w-full sm:w-[180px]">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
                   {categories.map((category) => (
                     <SelectItem key={category} value={category}>
-                      {category === "all" ? "All Categories" : category.charAt(0).toUpperCase() + category.slice(1)}
+                      {category === "all"
+                        ? "All Categories"
+                        : category.charAt(0).toUpperCase() + category.slice(1)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -235,59 +254,87 @@ export default function ProductsPage() {
         >
           {!loading &&
             filteredProducts.map((product) => (
-              <Card key={product._id} className="overflow-hidden hover:shadow-lg transition-shadow">
+              <Card
+                key={product._id}
+                className="overflow-hidden hover:shadow-lg transition-shadow"
+              >
                 <Link href={`/products/${product._id}`}>
-                  <div className={viewMode === "list" ? "flex" : ""}>
-                    <div className={viewMode === "list" ? "w-48 flex-shrink-0" : ""}>
+                  <div
+                    className={` group cursor-pointer ${viewMode === "list" ? "flex gap-4" : ""}`}
+                  >
+                    {/* Image */}
+                    <div
+                      className={`relative overflow-hidden bg-[#f5f3f0] ${
+                        viewMode === "list"
+                          ? "w-48 h-48 flex-shrink-0"
+                          : "aspect-[3/4] w-full"
+                      }`}
+                    >
                       <Image
                         src={product.images?.[0] || "/placeholder.svg"}
                         alt={product.name}
-                        width={300}
-                        height={300}
-                        className={`w-full object-cover ${viewMode === "list" ? "h-48" : "h-64"}`}
+                        fill
+                        className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
+                      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#1a1a1a] text-xs font-semibold px-4 py-1.5 tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 whitespace-nowrap shadow-md">
+                        Quick View
+                      </div>
                     </div>
-                    <CardContent className={`p-4 ${viewMode === "list" ? "flex-1" : ""}`}>
-                      <div className="space-y-2">
-                        <div className="flex justify-between items-start">
-                          <h3 className="font-semibold text-lg line-clamp-2">{product.name}</h3>
-                          <Badge variant="outline" className="ml-2 flex-shrink-0 capitalize">
-                            {product.gender}
-                          </Badge>
-                        </div>
 
-                        <p className="text-gray-600 text-sm line-clamp-2">{product.description}</p>
+                    {/* Info */}
+                    <div
+                      className={`p-2 space-y-1 ${viewMode === "list" ? "flex-1 pt-0" : ""}`}
+                    >
+                      <p className="text-[10px] tracking-[0.15em] text-[#999] uppercase font-medium">
+                        {product.category} · {product.gender}
+                      </p>
+                      <h3 className="text-sm font-medium text-[#1a1a1a] line-clamp-1 group-hover:text-[#c41e3a] transition-colors">
+                        {product.name}
+                      </h3>
 
-                        <div className="flex items-center space-x-2">
-                          <div className="flex items-center">
-                            <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                            <span className="text-sm text-gray-600 ml-1">
-                              {product.rating} ({product.reviews})
-                            </span>
-                          </div>
-                        </div>
+                      {/* Rating */}
+                      <div className="flex items-center gap-1">
+                        {[...Array(5)].map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`h-3 w-3 ${
+                              i < Math.floor(product.rating || 0)
+                                ? "fill-[#e8b84b] text-[#e8b84b]"
+                                : "text-[#ddd]"
+                            }`}
+                          />
+                        ))}
+                        <span className="text-[10px] text-[#999] ml-1">
+                          ({product.reviews || 0})
+                        </span>
+                      </div>
 
-                        {product.variants && (
-                          <div className="space-y-1">
-                            <div className="text-xs text-gray-500">
-                              Colors: {product.variants.colors?.slice(0, 3).join(", ") || "N/A"}
-                              {product.variants.colors && product.variants.colors.length > 3 &&
-                                ` +${product.variants.colors.length - 3} more`}
-                            </div>
-                            <div className="text-xs text-gray-500">
-                              Sizes: {product.variants.sizes?.slice(0, 4).join(", ") || "N/A"}
-                              {product.variants.sizes && product.variants.sizes.length > 4 &&
-                                ` +${product.variants.sizes.length - 4} more`}
-                            </div>
+                      {/* Sizes */}
+                      {product.variants?.sizes &&
+                        product.variants.sizes.length > 0 && (
+                          <div className="flex flex-wrap gap-1 pt-1">
+                            {product.variants.sizes.slice(0, 4).map((size) => (
+                              <span
+                                key={size}
+                                className="text-[10px] border border-[#ddd] px-1.5 py-0.5 text-[#666]"
+                              >
+                                {size}
+                              </span>
+                            ))}
                           </div>
                         )}
 
-                        <div className="flex justify-between items-center pt-2">
-                          <span className="text-2xl font-bold text-green-600">${product.price}</span>
-                          <Button size="sm">View Details</Button>
-                        </div>
+                      {/* Price */}
+                      <div className="flex items-center justify-between pt-1">
+                        <p className="text-sm font-bold text-[#1a1a1a]">
+                          Rs. {product.price?.toLocaleString()}
+                        </p>
+                        <span className="text-[10px] tracking-[0.1em] uppercase text-[#c41e3a] font-semibold border-b border-[#c41e3a]">
+                          View →
+                        </span>
                       </div>
-                    </CardContent>
+                    </div>
                   </div>
                 </Link>
               </Card>
@@ -297,11 +344,13 @@ export default function ProductsPage() {
         {/* Empty State */}
         {!loading && filteredProducts.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">No products found matching your criteria.</p>
+            <p className="text-gray-500 text-lg">
+              No products found matching your criteria.
+            </p>
             <Button
               onClick={() => {
-                setSearchTerm("")
-                setSelectedCategory("all")
+                setSearchTerm("");
+                setSelectedCategory("all");
               }}
               className="mt-4"
             >
@@ -311,5 +360,5 @@ export default function ProductsPage() {
         )}
       </div>
     </div>
-  )
+  );
 }

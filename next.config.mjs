@@ -1,14 +1,27 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  reactStrictMode: true,
   typescript: {
     ignoreBuildErrors: true,
   },
-  images: {
-    unoptimized: true,
+  eslint: {
+    ignoreDuringBuilds: true,
   },
-}
+  images: {
+    domains: ["res.cloudinary.com"],
+  },
+  async rewrites() {
+    return [
+      {
+        source: "/api/products",
+        destination: "https://ascent-backend.vercel.app/api/products",
+      },
+      {
+        source: "/api/products/:id",
+        destination: "https://ascent-backend.vercel.app/api/products/:id",
+      },
+    ];
+  },
+};
 
-export default nextConfig
+export default nextConfig;

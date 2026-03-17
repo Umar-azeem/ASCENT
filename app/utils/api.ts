@@ -14,7 +14,9 @@ export async function apiRequest(endpoint: string, options: RequestInit = {}) {
 
   try {
     const headers: HeadersInit = {
-      ...(options.body instanceof FormData ? {} : { "Content-Type": "application/json" }),
+      ...(options.body instanceof FormData
+        ? {}
+        : { "Content-Type": "application/json" }),
       ...(options.headers || {}),
     };
 

@@ -138,7 +138,7 @@ export default function Dashboard() {
     if (newProduct.images && newProduct.images.length > 0) {
       setCurrentImageIndex(
         (prev) =>
-          (prev - 1 + newProduct.images!.length) % newProduct.images!.length
+          (prev - 1 + newProduct.images!.length) % newProduct.images!.length,
       );
     }
   };
@@ -322,7 +322,7 @@ export default function Dashboard() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="price">Price ($)</Label>
+                    <Label htmlFor="price">Price (RS)</Label>
                     <Input
                       id="price"
                       type="number"

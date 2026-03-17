@@ -21,25 +21,24 @@ export default function ProductsList() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
- useEffect(() => {
-  const fetchProducts = async () => {
-    try {
-      const data = await apiRequest("/api/products", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      });
-      console.log("Fetched products:", data); 
-      setProducts(data);
-    } catch (error) {
-      console.error("Failed to fetch products:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await apiRequest("/api/products", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+        console.log("Fetched products:", data);
+        setProducts(data);
+      } catch (error) {
+        console.error("Failed to fetch products:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  fetchProducts();
-}, []);
-
+    fetchProducts();
+  }, []);
 
   if (loading) return <p>Loading...</p>;
   if (!products.length) return <p>No products found.</p>;

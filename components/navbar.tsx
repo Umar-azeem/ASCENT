@@ -5,14 +5,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import {
-  Search,
-  User,
-  Settings,
-  Menu,
-  Baby,
-  UserIcon,
-} from "lucide-react";
+import { Search, User, Settings, Menu, Baby, UserIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -40,7 +33,7 @@ type Category = {
   url: string;
   icon: any;
   description: string;
-  groups?: Group[];          // we use groups for Men & Kids
+  groups?: Group[]; // we use groups for Men & Kids
   subcategories?: SimpleSub[]; // not used now, kept for flexibility
 };
 
@@ -66,8 +59,20 @@ const categories: Category[] = [
     icon: UserIcon,
     description: "Men’s collection",
     groups: [
-      { name: "Summer", items: summerItems.map(i => ({ ...i, href: i.href + "&category=men" })) },
-      { name: "Winter", items: winterItems.map(i => ({ ...i, href: i.href + "&category=men" })) },
+      {
+        name: "Summer",
+        items: summerItems.map((i) => ({
+          ...i,
+          href: i.href + "&category=men",
+        })),
+      },
+      {
+        name: "Winter",
+        items: winterItems.map((i) => ({
+          ...i,
+          href: i.href + "&category=men",
+        })),
+      },
     ],
   },
   {
@@ -76,14 +81,24 @@ const categories: Category[] = [
     icon: Baby,
     description: "Fashion for kids",
     groups: [
-      { name: "Summer", items: summerItems.map(i => ({ ...i, href: i.href + "&category=kids" })) },
-      { name: "Winter", items: winterItems.map(i => ({ ...i, href: i.href + "&category=kids" })) },
+      {
+        name: "Summer",
+        items: summerItems.map((i) => ({
+          ...i,
+          href: i.href + "&category=kids",
+        })),
+      },
+      {
+        name: "Winter",
+        items: winterItems.map((i) => ({
+          ...i,
+          href: i.href + "&category=kids",
+        })),
+      },
     ],
   },
   // Women removed on both desktop and mobile as requested
 ];
-
-
 
 export function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -103,11 +118,8 @@ export function Navbar() {
       </SheetTrigger>
 
       {/* Scrollable mobile drawer */}
-      <SheetContent
-        side="left"
-        className="w-80 p-0"
-      >
-        <div className="h-full overflow-y-auto px-4 pb-6 pt-4"> 
+      <SheetContent side="left" className="w-80 p-0">
+        <div className="h-full overflow-y-auto px-4 pb-6 pt-4">
           <div className="flex flex-col space-y-1">
             <Link href="/" className="flex items-center space-x-2 px-2">
               <div className="w-24 h-24 rounded-lg flex items-center justify-center">
@@ -118,8 +130,6 @@ export function Navbar() {
                 <p className="text-xs text-muted-foreground">Garment</p>
               </div> */}
             </Link>
-
-           
 
             {/* Mobile categories with groups */}
             <div className="space-y-4">
@@ -233,7 +243,10 @@ export function Navbar() {
                                 </div>
                                 <div className="grid gap-1">
                                   {group.items.map((sub) => (
-                                    <NavigationMenuLink key={sub.name + sub.href} asChild>
+                                    <NavigationMenuLink
+                                      key={sub.name + sub.href}
+                                      asChild
+                                    >
                                       <Link
                                         href={sub.href}
                                         className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
