@@ -22,24 +22,24 @@ const categories = [
     description: "Fashion for children",
   },
   {
-    title: "Women",
-    url: "/products?category=women",
-    icon: Users,
-    description: "Women's collection",
+    // title: "Women",
+    // url: "/products?category=women",
+    // icon: Users,
+    // description: "Women's collection",
   },
-  {
-    title: "Men",
-    url: "/products?category=men",
-    icon: User,
-    description: "Men's collection",
-  },
+  // {
+  //   title: "Men",
+  //   url: "/products?category=men",
+  //   icon: User,
+  //   description: "Men's collection",
+  // },
 ]
 
 export function AppSidebar() {
   const pathname = usePathname()
 
   return (
-    <Sidebar className="border-r">
+    <Sidebar  className="border-r bg-white ">
       <SidebarHeader className="border-b px-6 py-4">
         <Link href="/" className="flex items-center space-x-2">
           <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
@@ -51,7 +51,6 @@ export function AppSidebar() {
           </div>
         </Link>
       </SidebarHeader>
-
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupContent>

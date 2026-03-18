@@ -157,7 +157,7 @@ export default function ProductsPage() {
             </div>
 
             {/* Category & Sort */}
-            <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
+            <div className="flex bg-white flex-col sm:flex-row gap-4 w-full lg:w-auto">
               <Select
                 value={selectedCategory}
                 onValueChange={setSelectedCategory}
@@ -165,7 +165,7 @@ export default function ProductsPage() {
                 <SelectTrigger className="w-full sm:w-[180px]">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white">
                   {categories.map((category) => (
                     <SelectItem key={category} value={category}>
                       {category === "all"
@@ -180,16 +180,15 @@ export default function ProductsPage() {
                 <SelectTrigger className="w-full sm:w-[180px]">
                   <SelectValue placeholder="Sort by" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white">
                   <SelectItem value="name">Name A-Z</SelectItem>
                   <SelectItem value="price-low">Price: Low to High</SelectItem>
                   <SelectItem value="price-high">Price: High to Low</SelectItem>
                   <SelectItem value="rating">Highest Rated</SelectItem>
                 </SelectContent>
               </Select>
-
               {/* View Toggle */}
-              <div className="flex border rounded-md">
+              <div className="border rounded-md">
                 <Button
                   variant={viewMode === "grid" ? "default" : "ghost"}
                   size="sm"
@@ -260,13 +259,13 @@ export default function ProductsPage() {
               >
                 <Link href={`/products/${product._id}`}>
                   <div
-                    className={` group cursor-pointer ${viewMode === "list" ? "flex gap-4" : ""}`}
+                    className={`group cursor-pointer ${viewMode === "list" ? "flex gap-3 sm:gap-4" : ""}`}
                   >
                     {/* Image */}
                     <div
-                      className={`relative overflow-hidden bg-[#f5f3f0] ${
+                      className={`relative flex flex-col overflow-hidden bg-[#f5f3f0] ${
                         viewMode === "list"
-                          ? "w-48 h-48 flex-shrink-0"
+                          ? "w-28 h-28 sm:w-40 sm:h-40 md:w-48 md:h-48 flex-shrink-0"
                           : "aspect-[3/4] w-full"
                       }`}
                     >
@@ -277,60 +276,75 @@ export default function ProductsPage() {
                         className="object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300" />
-                      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#1a1a1a] text-xs font-semibold px-4 py-1.5 tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 whitespace-nowrap shadow-md">
+
+                      {/* Quick View — hidden on mobile, shown on hover for md+ */}
+                      <div className="hidden md:flex absolute bottom-3 left-1/2 -translate-x-1/2 bg-white text-[#1a1a1a] text-[10px] font-semibold px-3 py-1.5 tracking-widest uppercase opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0 whitespace-nowrap shadow-md">
                         Quick View
                       </div>
                     </div>
 
                     {/* Info */}
                     <div
-                      className={`p-2 space-y-1 ${viewMode === "list" ? "flex-1 pt-0" : ""}`}
+                      className={`flex flex-col justify-center space-y-0.5 sm:space-y-1 ${
+                        viewMode === "list"
+                          ? "flex-1 py-1"
+                          : "pt-2 sm:pt-3 px-0.5"
+                      }`}
                     >
-                      <p className="text-[10px] tracking-[0.15em] text-[#999] uppercase font-medium">
+                      {/* Category & Gender */}
+                      <p className="text-[9px] sm:text-[10px] tracking-[0.12em] sm:tracking-[0.15em] text-[#999] uppercase font-medium truncate">
                         {product.category} · {product.gender}
                       </p>
-                      <h3 className="text-sm font-medium text-[#1a1a1a] line-clamp-1 group-hover:text-[#c41e3a] transition-colors">
+
+                      {/* Name */}
+                      <h3 className="text-xs sm:text-sm font-medium text-[#1a1a1a] line-clamp-1 group-hover:text-[#c41e3a] transition-colors leading-tight">
                         {product.name}
                       </h3>
 
                       {/* Rating */}
-                      <div className="flex items-center gap-1">
+                      <div className="flex items-center gap-0.5 sm:gap-1">
                         {[...Array(5)].map((_, i) => (
                           <Star
                             key={i}
-                            className={`h-3 w-3 ${
+                            className={`h-2.5 w-2.5 sm:h-3 sm:w-3 ${
                               i < Math.floor(product.rating || 0)
                                 ? "fill-[#e8b84b] text-[#e8b84b]"
                                 : "text-[#ddd]"
                             }`}
                           />
                         ))}
-                        <span className="text-[10px] text-[#999] ml-1">
+                        <span className="text-[9px] sm:text-[10px] text-[#999] ml-0.5 sm:ml-1">
                           ({product.reviews || 0})
                         </span>
                       </div>
 
-                      {/* Sizes */}
+                      {/* Sizes — hidden on small mobile in grid mode to save space */}
                       {product.variants?.sizes &&
                         product.variants.sizes.length > 0 && (
-                          <div className="flex flex-wrap gap-1 pt-1">
-                            {product.variants.sizes.slice(0, 4).map((size) => (
-                              <span
-                                key={size}
-                                className="text-[10px] border border-[#ddd] px-1.5 py-0.5 text-[#666]"
-                              >
-                                {size}
-                              </span>
-                            ))}
+                          <div
+                            className={`flex flex-wrap gap-0.5 sm:gap-1 pt-0.5 sm:pt-1 ${
+                              viewMode !== "list" ? "hidden xs:flex" : "flex"
+                            }`}
+                          >
+                            {product.variants.sizes
+                              .slice(0, viewMode === "list" ? 4 : 3)
+                              .map((size) => (
+                                <span
+                                  key={size}
+                                  className="text-[9px] sm:text-[10px] border border-[#ddd] px-1 sm:px-1.5 py-0.5 text-[#666] leading-none"
+                                >
+                                  {size}
+                                </span>
+                              ))}
                           </div>
                         )}
 
                       {/* Price */}
-                      <div className="flex items-center justify-between pt-1">
-                        <p className="text-sm font-bold text-[#1a1a1a]">
+                      <div className="flex items-center justify-between pt-0.5 sm:pt-1">
+                        <p className="text-xs sm:text-sm font-bold text-[#1a1a1a] leading-none">
                           Rs. {product.price?.toLocaleString()}
                         </p>
-                        <span className="text-[10px] tracking-[0.1em] uppercase text-[#c41e3a] font-semibold border-b border-[#c41e3a]">
+                        <span className="text-[9px] sm:text-[10px] tracking-[0.08em] sm:tracking-[0.1em] uppercase text-[#c41e3a] font-semibold border-b border-[#c41e3a]">
                           View →
                         </span>
                       </div>

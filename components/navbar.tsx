@@ -5,7 +5,15 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Search, User, Settings, Menu, Baby, UserIcon } from "lucide-react";
+import {
+  Search,
+  User,
+  Settings,
+  Menu,
+  Baby,
+  UserIcon,
+  LogOut,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -53,28 +61,28 @@ const winterItems: SimpleSub[] = [
 ];
 
 const categories: Category[] = [
-  {
-    title: "Men’s Collection",
-    url: "/products?category=men",
-    icon: UserIcon,
-    description: "Men’s collection",
-    groups: [
-      {
-        name: "Summer",
-        items: summerItems.map((i) => ({
-          ...i,
-          href: i.href + "&category=men",
-        })),
-      },
-      {
-        name: "Winter",
-        items: winterItems.map((i) => ({
-          ...i,
-          href: i.href + "&category=men",
-        })),
-      },
-    ],
-  },
+  // {
+  //   title: "Men’s Collection",
+  //   url: "/products?category=men",
+  //   icon: UserIcon,
+  //   description: "Men’s collection",
+  //   groups: [
+  //     {
+  //       name: "Summer",
+  //       items: summerItems.map((i) => ({
+  //         ...i,
+  //         href: i.href + "&category=men",
+  //       })),
+  //     },
+  //     {
+  //       name: "Winter",
+  //       items: winterItems.map((i) => ({
+  //         ...i,
+  //         href: i.href + "&category=men",
+  //       })),
+  //     },
+  //   ],
+  // },
   {
     title: "Kids",
     url: "/products?category=kids",
@@ -118,7 +126,7 @@ export function Navbar() {
       </SheetTrigger>
 
       {/* Scrollable mobile drawer */}
-      <SheetContent side="left" className="w-80 p-0">
+      <SheetContent side="left" className="w-80 p-0 bg-white">
         <div className="h-full overflow-y-auto px-4 pb-6 pt-4">
           <div className="flex flex-col space-y-1">
             <Link href="/" className="flex items-center space-x-2 px-2">
@@ -130,7 +138,6 @@ export function Navbar() {
                 <p className="text-xs text-muted-foreground">Garment</p>
               </div> */}
             </Link>
-
             {/* Mobile categories with groups */}
             <div className="space-y-4">
               {categories.map((category) => {
@@ -140,7 +147,7 @@ export function Navbar() {
                     <Link
                       href={category.url}
                       className={`flex items-center space-x-3 px-2 py-3 rounded-lg transition-colors ${
-                        active ? "bg-blue-50 text-blue-600" : "hover:bg-gray-50"
+                        active ? "bg-gray-50 text-blue-600" : "hover:bg-gray-50"
                       }`}
                     >
                       <category.icon className="h-5 w-5" />
@@ -151,7 +158,6 @@ export function Navbar() {
                         </div>
                       </div>
                     </Link>
-
                     <div className="ml-8 space-y-3">
                       {category.groups?.map((group) => (
                         <div key={group.name}>
@@ -203,7 +209,7 @@ export function Navbar() {
 
             {/* Desktop nav (Women removed) */}
             <NavigationMenu className="hidden md:block">
-              <NavigationMenuList>
+              <NavigationMenuList className=" bg-white rounded-md">
                 {categories.map((category) => {
                   const active = isActive(category);
                   return (
@@ -214,7 +220,7 @@ export function Navbar() {
                         <category.icon className="h-4 w-4 mr-2" />
                         {category.title}
                       </NavigationMenuTrigger>
-                      <NavigationMenuContent>
+                      <NavigationMenuContent className="bg-white">
                         <div className="grid w-[560px] gap-4 p-4">
                           {/* Card to parent category */}
                           <div className="row-span-3">
@@ -249,7 +255,9 @@ export function Navbar() {
                                     >
                                       <Link
                                         href={sub.href}
-                                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-all duration-200 
+    hover:bg-blue-600/10 hover:bg-blue-200 focus:bg-blue-600/10 focus:bg-blue-400
+    hover:border-l-2 border-l-2 border-l-transparent hover:border-l-[#494cda] hover:pl-4"
                                       >
                                         <div className="text-sm font-medium leading-none">
                                           {sub.name}
@@ -290,7 +298,7 @@ export function Navbar() {
                 <User className="h-4 w-4" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
+            <DropdownMenuContent align="end" className="w-56 bg-white">
               <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link href="/dashboard">
@@ -299,7 +307,9 @@ export function Navbar() {
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>Sign Out</DropdownMenuItem>
+              <DropdownMenuItem>
+                <LogOut className="mr-2 h-4 w-4" /> Sign Out
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>

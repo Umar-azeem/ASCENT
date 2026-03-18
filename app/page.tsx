@@ -178,13 +178,13 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-white font-['Cormorant_Garamond',Georgia,serif]">
       {/* Announcement Bar */}
-      <div className="bg-[#1a1a1a] text-white text-center py-2.5 text-xs tracking-[0.2em] uppercase font-medium">
+      <div className="bg-[#1a1a1a] hidden md:flex text-white text-center py-2.5 text-xs tracking-[0.2em] uppercase font-medium">
         Free Delivery on Orders Above Rs. 2,500 &nbsp;|&nbsp; Cash on Delivery
         Available
       </div>
 
       {/* Hero Slider */}
-      <section className="relative h-[75vh] md:h-[88vh] overflow-hidden">
+      <section className="relative hidden md:flex h-[75vh] md:h-[88vh] overflow-hidden">
         <div className="absolute inset-0">
           {heroSlides.map((slide, index) => (
             <div
@@ -206,7 +206,7 @@ export default function HomePage() {
         </div>
 
         {/* Slide CTA */}
-        <div className="relative z-10 h-full flex items-end pb-16 md:pb-20">
+        <div className="relative hidden md:flex z-10 h-full items-end pb-16 md:pb-20">
           <div className="container mx-auto px-6 md:px-12">
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <Link
@@ -227,7 +227,7 @@ export default function HomePage() {
         </div>
 
         {/* Dot Navigation */}
-        <div className="absolute bottom-6 right-8 z-20 flex gap-2">
+        <div className="absolute hidden md:flex bottom-6 right-8 z-20  gap-2">
           {heroSlides.map((_, index) => (
             <button
               key={index}
@@ -257,7 +257,7 @@ export default function HomePage() {
       </section>
 
       {/* Stats Strip */}
-      <section className="border-b border-[#e8e4df] bg-[#faf9f7]">
+      <section className="border-b hidden md:flex border-[#e8e4df] bg-[#faf9f7]">
         <div className="container mx-auto px-6 md:px-12">
           <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-[#e8e4df]">
             {[
@@ -280,7 +280,7 @@ export default function HomePage() {
       </section>
 
       {/* Categories Section */}
-      <section className="py-16 md:py-20 bg-white">
+      <section className="py-16 hidden md:flex md:py-20 bg-white">
         <div className="container mx-auto px-6 md:px-12">
           {/* Section Header */}
           <div className="flex items-center justify-between mb-10">
@@ -338,7 +338,7 @@ export default function HomePage() {
       </div>
 
       {/* Men Products */}
-      <section className="py-16 md:py-20 bg-white">
+      {/* <section className="py-16 hidden md:flex md:py-20 bg-white">
         <div className="container mx-auto px-6 md:px-12">
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -383,10 +383,10 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Kids Products */}
-      <section className="py-16 md:py-20 bg-[#faf9f7]">
+      <section className="py-4 md:py-20 bg-[#faf9f7]">
         <div className="container mx-auto px-6 md:px-12">
           <div className="flex items-end justify-between mb-10">
             <div>
@@ -432,8 +432,28 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <section className="border-b md:hidden flex border-[#e8e4df] bg-[#faf9f7]">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-[#e8e4df]">
+            {[
+              { icon: Users, value: "50K+", label: "Happy Customers" },
+              { icon: TrendingUp, value: "5K+", label: "Products" },
+              { icon: Award, value: "4.9★", label: "Avg Rating" },
+              { icon: Truck, value: "24H", label: "Fast Delivery" },
+            ].map(({ icon: Icon, value, label }) => (
+              <div key={label} className="py-5 text-center">
+                <p className="text-xl md:text-2xl font-bold text-[#1a1a1a] tracking-tight">
+                  {value}
+                </p>
+                <p className="text-[10px] tracking-[0.15em] text-[#888] uppercase mt-1">
+                  {label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* Features Section */}
       <section className="py-14 border-t border-[#e8e4df] bg-white">
         <div className="container mx-auto px-6 md:px-12">
           <div className="grid md:grid-cols-3 gap-0 divide-y md:divide-y-0 md:divide-x divide-[#e8e4df]">

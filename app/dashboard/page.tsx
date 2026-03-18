@@ -489,7 +489,7 @@ export default function Dashboard() {
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-white">
                         <SelectItem value="clothing">Clothing</SelectItem>
                         <SelectItem value="accessories">Accessories</SelectItem>
                         <SelectItem value="footwear">Footwear</SelectItem>
@@ -509,7 +509,7 @@ export default function Dashboard() {
                       <SelectTrigger>
                         <SelectValue placeholder="Select gender" />
                       </SelectTrigger>
-                      <SelectContent>
+                      <SelectContent className="bg-white">
                         <SelectItem value="men">Men</SelectItem>
                         {/* <SelectItem value="women">Women</SelectItem> */}
                         <SelectItem value="kids">Kids</SelectItem>
@@ -557,7 +557,7 @@ export default function Dashboard() {
                         <SelectTrigger className="flex-1">
                           <SelectValue placeholder="Select size" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="bg-white">
                           <SelectItem value="XS">XS</SelectItem>
                           <SelectItem value="S">S</SelectItem>
                           <SelectItem value="M">M</SelectItem>
