@@ -49,8 +49,8 @@ export default function ProductsPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [loading, setLoading] = useState(true);
 
-  const categories = ["all", "kids", "women", "men"];
-
+  // const categories = ["all", "kids", "women", "men"];
+  const categories = ["all", "kids","women"];
   // Fetch products from API
   useEffect(() => {
     const fetchProducts = async () => {

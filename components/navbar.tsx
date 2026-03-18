@@ -215,7 +215,7 @@ export function Navbar() {
                   return (
                     <NavigationMenuItem key={category.title}>
                       <NavigationMenuTrigger
-                        className={active ? "bg-blue-50 text-blue-600" : ""}
+                        className={active ? "bg-white text-black" : ""}
                       >
                         <category.icon className="h-4 w-4 mr-2" />
                         {category.title}
