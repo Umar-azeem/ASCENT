@@ -489,7 +489,7 @@ export default function Dashboard() {
                       <SelectTrigger>
                         <SelectValue placeholder="Select category" />
                       </SelectTrigger>
-                      <SelectContent className="bg-white">
+                      <SelectContent className="bg-white p-0.5">
                         <SelectItem value="clothing">Clothing</SelectItem>
                         <SelectItem value="accessories">Accessories</SelectItem>
                         <SelectItem value="footwear">Footwear</SelectItem>
